@@ -1,0 +1,12 @@
+Ubuntu, Debian and derived systems
+
+sudo apt-get install git 
+
+
+RedHat, CentOS and Fedora
+sudo yum install git 
+
+
+GIT Configuration
+git config --global user.name "Firstname Lastname“
+git config --global user.email "your.email@example.org"

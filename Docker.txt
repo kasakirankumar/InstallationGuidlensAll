@@ -1,0 +1,36 @@
+yum install docker -y
+
+---------
+Dockr compose
+Step 1 — Installing Docker
+yum -y install docker docker-registry
+usermod -aG docker $(whoami) 
+systemctl enable docker
+systemctl start docker
+
+
+Step 2 — Installing Docker Compose
+sudo yum install epel-release 
+ yum install gcc python-devel krb5-devel krb5-workstation
+yum install python-pip -y
+sudo pip install docker-compose
+sudo yum upgrade python*
+docker-compose -v 
+			sudo pip install --upgrade --force-reinstall pip==9.0.3 (if any error)
+-----------------------------------------------
+TestingDocker Compose
+mkdir hello-world 
+cd hello-world
+vi docker-compose.yml
+     unixmen-compose-test: 
+        image: hello-world 
+------------------------------------
+sudo docker-compose up 
+
+------------------
+Troubleshoot:
+If docker-compose is not running 
+Check the owner info of the file
+sudo ls -la /var/run/docker.sock
+If it is with root then change it to
+sudo chown ec2-user /var/run/docker.sock

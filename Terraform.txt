@@ -1,0 +1,25 @@
+Terraform Setup on Linux
+Step 1 : Create user with Full admin access in AWS
+
+Step 2 : Configure Access key and Secret Key
+aws Configure
+
+https://www.terraform.io/downloads.html    (Linux donwload)
+Copy the Link for the OS and download into the machine and unzip the file
+
+Step 4 : Unzip the file 
+unzip terraform_o.12.7_linux_amd64.zip
+
+Step 5 : Move the executable file into /usr/local/bin (mv terraform /usr/local/bin)
+
+Step 6 : Setup Environment Variable
+ echo 'export PATH="/usr/local/bin:$PATH"' >> /etc/profile
+Source /etc/profile
+
+Step 7 : Verify the version
+terraform -v
+-------------------------------------
+Terraform Setup on Windows
+https://adamtheautomator.com/terraform-windows/
+
+

@@ -1,0 +1,50 @@
+Install Java:
+Step 1: Update your CentOS 7 system
+sudo yum install epel-release OR sudo amazon-linux-extras install epel
+sudo yum update 
+
+
+Step 2: Install Java
+sudo yum install java-1.8.0-openjdk
+sudo yum install java-1.8.0-openjdk-devel
+Java -version
+
+set two environment variables: "JAVA_HOME" and "JRE_HOME"
+sudo cp /etc/profile /etc/profile_backup 
+echo 'export JAVA_HOME=/usr/lib/jvm/jre-1.8.0-openjdk' | sudo tee -a /etc/profile 
+echo 'export JRE_HOME=/usr/lib/jvm/jre' | sudo tee -a /etc/profile 
+source /etc/profile 
+
+
+Verify environment variables
+echo $JAVA_HOME 
+echo $JRE_HOME 
+-------------------------------
+Download Tomcat8 Package   (https://tomcat.apache.org/download-80.cgi)
+
+ wget https://dlcdn.apache.org/tomcat/tomcat-8/v8.5.72/bin/apache-tomcat-8.5.72.tar.gz 
+
+Extract the tar file
+
+tar -zxvf apache-tomcat-8.5.72.tar.gz
+
+Provide the execute permission for all the users to start/stop the tomcat service 
+Go to bin directory and give the permissions
+/root/apache-tomcat-8.5.72/bin
+
+Create soft link to start/stop tomcat service
+[root@ip-172-31-35-78 bin]# ln -s /root/apache-tomcat-8.5.72/bin/startup.sh /etc/init.d/tomcatstart
+[root@ip-172-31-35-78 bin]# ln -s /root/apache-tomcat-8.5.72/bin/shutdown.sh /etc/init.d/tomcatstop
+
+Start the Tomcat
+ /etc/init.d/tomcatstart
+
+Content.xml should be modified in below files
+/root/apache-tomcat-8.5.72/webapps/host-manager/META-INF/context.xml
+/root/apache-tomcat-8.5.72/webapps/manager/META-INF/context.xml
+
+Comment the valve block in both the files 
+
+Restart Tomcat
+/etc/init.d/tomcatstop
+/etc/init.d/tomcatstart

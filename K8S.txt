@@ -1,0 +1,46 @@
+KUBERNETES SETUP ON AWS:
+Login to aws and spin up an ubuntu 18.04 ec2 instance with a min requirement of 2vcpu & 2gb memory (8GB HDD is sufficient for this tutorial)
+
+While setting up an instance make sure under the configure instance, click on advanced details and add the below steps in USER DATA as text (copy & paste), the below script should be run initially on all the instances (master and slave nodes)
+
+#!/bin/bash
+sudo su;
+git clone https://github.com/raknas999/servicemesh.git && chmod 755 servicemesh/initial.sh && sh servicemesh/initial.sh;
+--------------------------------------------------------
+
+
+On the Kube master node, initialize the cluster
+
+sudo kubeadm init --pod-network-cidr=10.244.0.0/16 #(Master ip)
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+Verify that the cluster is responsive and that Kubectl is working
+kubectl version
+
+Run below commands to configure the network in the cluster (weavenet Network)
+export kubever=$(kubectl version | base64 | tr -d '\n')
+kubectl apply -f https://cloud.weave.works/k8s/net?k8s-version=$kubever
+
+----------------
+Create a kubernetes Dashboard
+kubectl apply -f https://gist.githubusercontent.com/initcron/32ff89394c881414ea7ef7f4d3a1d499/raw/4863613585d05f9360321c7141cc32b8aa305605/kube-dashboard.yaml
+
+To access Dashboard  
+publicipofanynode:31000
+----------------
+Get cluster info
+kubectl cluster-info
+
+Run the below command on master node to get the token to join the slaves to the cluster
+kubeadm token create --print-join-command
+O/P--Token copy and run in worker node to join to cluster)
+
+------------------------------------
+Worker Node Setup
+Create Worker Node with bootable script then run the command (above command output) to join worker node (with user root)
+----------------------------
+Verify that all nodes have successfully joined the cluster
+
+kubectl get nodes

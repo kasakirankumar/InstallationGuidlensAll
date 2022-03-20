@@ -1,0 +1,36 @@
+Ansible installation on AWS
+
+Step 1 : Create a common id on all the machines
+# useradd ansible
+# passwd ansible
+
+Step 2: Edit the /etc/ssh/sshd_config file on the control machine and uncomment out the lines forPasswordAuthentication and PermitRootLogin
+Perform the above steps on all the machines. Once completed, restart the sshd service on both the machines
+# systemctl restart sshd
+
+For complete automation of tasks, we will need passwordless SSH authentication
+
+Step 3 : To enable passwordless authentication to perform the steps shown below. Firstly add the user ansible to the /etc/sudoers file on all  the machines which will enable the user ansible to run any command which requires root privileges
+
+Step 4: Create private and public key in all the machines to communicate one and each 
+              other with ssh 
+[ansible@ip-172-31-21-70 ~]$ ssh-keygen
+
+Step 5: Copy the public key to the target machine and vice versa.
+ssh-copy-id <IP-Address-Host-Machine>
+
+We are now able to log in without entering the password. After the check out of the ssh connectivity on both the machines and be logged in as ansible user
+
+Step 6: install ansible on the Control machine only by enabling the EPEL repo from fedora which provides add-on software packages. Perform the following steps to install ANSIBLE
+
+$ wget http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm 
+$ sudo rpm -ivh epel-release-latest-7.noarch.rpm
+$ sudo yum install ansible -y 
+$ ansible --version 
+
+Step 7: Edit the ansible.cfg file and enable the inventory file parameter on the Control machine
+sudo vi /etc/ansible/ansible.cfg
+
+Ansible uses the concept of Inventory to manage and track the target machines. By default, this file is located in /etc/ansible/hosts and can be changed as well. A host file consists of groups for better classification and multiple machines under the group. All the required machines can be added to those groups.
+
+Every group is denoted by a square bracket and a group name within. A server can actually exist in multiple groups.

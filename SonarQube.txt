@@ -1,0 +1,39 @@
+Install Java:
+Step 1: Update your CentOS 7 system
+sudo yum install epel-release OR sudo amazon-linux-extras install epel
+sudo yum update 
+
+
+Step 2: Install Java
+sudo yum install java-1.8.0-openjdk
+sudo yum install java-1.8.0-openjdk-devel
+Java -version
+
+set two environment variables: "JAVA_HOME" and "JRE_HOME"
+sudo cp /etc/profile /etc/profile_backup 
+echo 'export JAVA_HOME=/usr/lib/jvm/jre-1.8.0-openjdk' | sudo tee -a /etc/profile 
+echo 'export JRE_HOME=/usr/lib/jvm/jre' | sudo tee -a /etc/profile 
+source /etc/profile 
+
+
+Verify environment variables
+echo $JAVA_HOME 
+echo $JRE_HOME 
+
+--------------------------
+Step 1 : Download and Install SonarQube
+
+wget http://downloads.sourceforge.net/project/sonar-pkg/rpm/sonar.repo
+sudo mv sonar.repo /etc/yum.repos.d/sonar.repo
+
+sudo yum install sonar
+
+Step 2 : Start the SonarQube
+sudo service sonar start
+
+Step 3 : Launch the SonarQube
+http://<ipaddress>:9000
+
+Login to Sonar:
+Username : admin
+Password : admin

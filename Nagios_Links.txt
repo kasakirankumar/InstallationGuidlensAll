@@ -1,0 +1,6 @@
+Nagios Setup: (How to Install and Configure Nagios on Ubuntu 18.04)
+https://linuxize.com/post/how-to-install-and-configure-nagios-on-ubuntu-18-04/
+
+
+Adding node to Nagios: (How to Monitor Remote Linux Host using Nagios and NRPE)
+https://tecadmin.net/monitor-remote-linux-host-using-nagios/

@@ -1,0 +1,7 @@
+https://github.com/kasakirans/kubernetes-1.git
+
+cd kubernetes-1/monitoring/kubernetes-elk/
+mkdir elk
+cd elk
+
+kubectl apply -f .

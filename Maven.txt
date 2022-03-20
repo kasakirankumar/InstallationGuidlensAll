@@ -1,0 +1,49 @@
+Install Java:
+Step 1: Update your CentOS 7 system
+sudo yum install epel-release 
+sudo yum update 
+
+
+Step 2: Install Java
+sudo yum install java-1.8.0-openjdk
+sudo yum install java-1.8.0-openjdk-devel
+Java -version
+
+set two environment variables: "JAVA_HOME" and 
+sudo cp /etc/profile /etc/profile_backup 
+echo 'export JAVA_HOME=/usr/lib/jvm/jre-1.8.0-openjdk' | sudo tee -a /etc/profile 
+echo 'export JRE_HOME=/usr/lib/jvm/jre' | sudo tee -a /etc/profile 
+source /etc/profile 
+
+
+Verify environment variables
+echo $JAVA_HOME 
+echo $JRE_HOME 
+
+---------------------------
+Maven Setup
+
+Download Maven
+1. You can download Maven distribution from the Apache Maven website. Currently, the latest release of Maven is version 3.6.3.
+ wget https://mirrors.estointernet.in/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
+
+2. Unpack Maven
+sudo tar -xf apache-maven-3.6.3-bin.tar.gz  -C /usr/local
+The above command will unpack the Maven distribution to /usr/local/apache-maven-3.3.9
+
+3. Next, we will create a symbolic link to the Maven distribution:
+cd /usr/local
+sudo ln -s apache-maven-3.6.3 maven
+
+4. Create MAVEN_HOME Environment Variables
+Create a maven.sh file at /etc/profile.d folder (you can use vi with below command)
+sudo vi /etc/profile.d/maven.sh
+Enter the follow content to the file:
+export M2_HOME=/usr/local/maven
+export PATH=${M2_HOME}/bin:${PATH}
+Save the file.
+
+5. We will need to activate the above environment variables. We can do that by log out and log in again or simply run below command:
+source /etc/profile
+ 6. We can verify whether Maven is installed successfully or not by type command:
+mvn -v

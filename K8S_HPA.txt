@@ -1,0 +1,25 @@
+Horizontal Pod Auto Scaling (HPA)
+HPA needs Heapster to monitor pods, by default heapster will not avialable in nodes
+
+git clone https://github.com/kasakiran/metric-server
+
+Go to the Path : metric-server/deploy/1.8+/ and edit deploy metric-server deploy file (metrics-server-deployment.yaml)
+Note : Deploy file validate certification to ignore validation add the below code into 
+The file (yellow highlighted code)
+
+edit metric-server-deployment.yml fil  to add the flags
+# args:
+# - --kubelet-insecure-tls
+# - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
+
+------------
+Deploy all the files from the directory : 
+kubectl crate –f .
+
+kubectl -n kube-system get pods  for metric server information
+
+After creation check the logs of metric-server :
+kubectl -n kube-system logs metrics-server-6c59dd7794-8nt8q(id) --ex
+kubectl top pods (o/p success showing metrics)
+
+
